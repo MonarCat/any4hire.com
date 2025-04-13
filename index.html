@@ -1,0 +1,1450 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AnyHire - Rent Anything, Anywhere</title>
+  <meta name="description" content="AnyHire connects people who need to rent items with those who have items to rent. From tools to cameras to party equipment - find what you need.">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    :root {
+      --primary: #4361ee;
+      --primary-dark: #3a56d4;
+      --secondary: #3f37c9;
+      --accent: #4895ef;
+      --light: #f8f9fa;
+      --dark: #212529;
+      --success: #4cc9f0;
+      --warning: #f72585;
+      --gray: #6c757d;
+      --light-gray: #e9ecef;
+    }
+    
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    
+    body {
+      font-family: 'Poppins', sans-serif;
+      line-height: 1.6;
+      color: var(--dark);
+      background-color: var(--light);
+      scroll-behavior: smooth;
+    }
+
+    /* Enhanced Header with Sticky Animation */
+    header {
+      background-color: white;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      transition: all 0.3s ease;
+    }
+
+    header.scrolled {
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+      padding: 0.5rem 0;
+    }
+    
+    .header-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+      max-width: 1400px;
+      margin: 0 auto;
+      transition: all 0.3s;
+    }
+
+    /* Animated Logo Frame */
+    .logo-frame {
+      display: inline-block;
+      border: 3px solid var(--primary);
+      border-radius: 15px;
+      padding: 10px 20px;
+      transition: all 0.3s;
+      background: white;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      transform-style: preserve-3d;
+    }
+
+    .logo-frame:hover {
+      transform: scale(1.05) rotateY(10deg);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--primary);
+      text-decoration: none;
+    }
+    
+    .logo i {
+      margin-right: 0.5rem;
+      color: var(--accent);
+      transition: transform 0.3s;
+    }
+
+    .logo-frame:hover .logo i {
+      transform: rotate(15deg);
+    }
+    
+    /* Enhanced Navigation */
+    nav {
+      display: flex;
+      align-items: center;
+    }
+    
+    .nav-links {
+      display: flex;
+      list-style: none;
+    }
+    
+    .nav-links li {
+      margin-left: 1.5rem;
+      position: relative;
+    }
+    
+    .nav-links a {
+      text-decoration: none;
+      color: var(--dark);
+      font-weight: 500;
+      transition: all 0.3s;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+    
+    .nav-links a:hover {
+      color: var(--primary);
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background-color: var(--primary);
+      transition: width 0.3s;
+    }
+
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+    
+    .dropdown {
+      position: relative;
+    }
+    
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      background-color: white;
+      min-width: 220px;
+      box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+      border-radius: 8px;
+      z-index: 1;
+      padding: 0.5rem 0;
+      animation: fadeIn 0.3s ease-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    .dropdown:hover .dropdown-content {
+      display: block;
+    }
+    
+    .dropdown-content a {
+      padding: 0.75rem 1.5rem;
+      display: block;
+      color: var(--gray);
+      transition: all 0.3s;
+    }
+    
+    .dropdown-content a:hover {
+      background-color: var(--light-gray);
+      color: var(--primary);
+      padding-left: 1.75rem;
+    }
+    
+    .auth-buttons .btn {
+      margin-left: 1rem;
+    }
+    
+    /* Enhanced Hero Section with Parallax Effect */
+    .hero {
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      color: white;
+      padding: 8rem 2rem 6rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: url('https://images.unsplash.com/photo-1551434678-e076c223a692?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80') center/cover no-repeat;
+      opacity: 0.1;
+      z-index: 0;
+    }
+    
+    .hero-container {
+      max-width: 800px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+    
+    .hero h1 {
+      font-size: 3rem;
+      margin-bottom: 1.5rem;
+      font-weight: 700;
+      animation: slideUp 0.8s ease-out;
+    }
+
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    .hero p {
+      font-size: 1.3rem;
+      margin-bottom: 2rem;
+      opacity: 0.9;
+      animation: slideUp 0.8s ease-out 0.2s both;
+    }
+    
+    /* Enhanced Search Bar */
+    .search-bar {
+      display: flex;
+      max-width: 600px;
+      margin: 0 auto;
+      background: white;
+      border-radius: 50px;
+      overflow: hidden;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      animation: slideUp 0.8s ease-out 0.4s both;
+      transition: transform 0.3s;
+    }
+
+    .search-bar:hover {
+      transform: translateY(-3px);
+    }
+    
+    .search-bar input {
+      flex: 1;
+      padding: 1.2rem 1.5rem;
+      border: none;
+      outline: none;
+      font-size: 1rem;
+      transition: all 0.3s;
+    }
+
+    .search-bar input:focus {
+      background-color: #f0f4ff;
+    }
+    
+    .search-bar button {
+      background-color: var(--accent);
+      color: white;
+      border: none;
+      padding: 0 1.8rem;
+      cursor: pointer;
+      transition: background-color 0.3s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .search-bar button:hover {
+      background-color: var(--primary-dark);
+    }
+
+    /* Enhanced Categories Section */
+    .categories {
+      padding: 5rem 2rem;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+    
+    .section-title {
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+    
+    .section-title h2 {
+      font-size: 2.2rem;
+      color: var(--dark);
+      margin-bottom: 1rem;
+      position: relative;
+      display: inline-block;
+    }
+
+    .section-title h2::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80px;
+      height: 4px;
+      background: var(--primary);
+      border-radius: 2px;
+    }
+    
+    .section-title p {
+      color: var(--gray);
+      max-width: 600px;
+      margin: 0 auto;
+      font-size: 1.1rem;
+    }
+    
+    .category-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 2rem;
+    }
+    
+    /* Colorful Animated Category Cards */
+    .category-card {
+      background: white;
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      text-decoration: none;
+      color: var(--dark);
+      border: 3px solid #ff6b35;
+      transform: translateY(0);
+    }
+
+    .category-card:nth-child(2) { border-color: #4ecdc4; }
+    .category-card:nth-child(3) { border-color: #45b7d1; }
+    .category-card:nth-child(4) { border-color: #96ceb4; }
+    .category-card:nth-child(5) { border-color: #ff9f1c; }
+    .category-card:nth-child(6) { border-color: #2ec4b6; }
+    
+    .category-card:hover {
+      transform: translateY(-10px) scale(1.02);
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+    }
+    
+    .category-img {
+      height: 150px;
+      background-color: var(--light-gray);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--primary);
+      font-size: 3rem;
+      transition: all 0.3s;
+    }
+
+    .category-card:hover .category-img {
+      background-color: #f0f4ff;
+    }
+    
+    .category-info {
+      padding: 1.5rem;
+      text-align: center;
+    }
+    
+    .category-info h3 {
+      margin-bottom: 0.5rem;
+      font-size: 1.3rem;
+    }
+    
+    .category-info p {
+      color: var(--gray);
+      font-size: 0.95rem;
+    }
+
+    /* Featured Items with Hover Effects */
+    .featured-items {
+      padding: 5rem 2rem;
+      background-color: var(--light-gray);
+    }
+    
+    .items-container {
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+    
+    .item-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 2.5rem;
+    }
+    
+    .item-card {
+      background: white;
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      position: relative;
+    }
+    
+    .item-card:hover {
+      transform: translateY(-10px) scale(1.02);
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+    }
+
+    .item-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 5px;
+      background: var(--primary);
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .item-card:hover::before {
+      opacity: 1;
+    }
+    
+    .item-img {
+      height: 200px;
+      background-color: var(--light-gray);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .item-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s;
+    }
+
+    .item-card:hover .item-img img {
+      transform: scale(1.1);
+    }
+    
+    .item-badge {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      background-color: var(--warning);
+      color: white;
+      padding: 0.25rem 0.75rem;
+      border-radius: 50px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      z-index: 1;
+    }
+
+    .item-badge.discount {
+      background-color: #4caf50;
+    }
+    
+    .item-info {
+      padding: 1.5rem;
+    }
+    
+    .item-info h3 {
+      margin-bottom: 0.5rem;
+      font-size: 1.25rem;
+    }
+    
+    .item-location {
+      display: flex;
+      align-items: center;
+      color: var(--gray);
+      font-size: 0.9rem;
+      margin-bottom: 1rem;
+    }
+    
+    .item-location i {
+      margin-right: 0.5rem;
+      color: var(--primary);
+    }
+    
+    .item-price {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 1rem;
+    }
+    
+    .item-meta {
+      display: flex;
+      justify-content: space-between;
+      border-top: 1px solid var(--light-gray);
+      padding-top: 1rem;
+      color: var(--gray);
+      font-size: 0.9rem;
+    }
+
+    .item-meta span {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    /* Enhanced CTA Section */
+    .cta {
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      color: white;
+      padding: 6rem 2rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cta::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: url('https://images.unsplash.com/photo-1521791055366-0d553872125f?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80') center/cover no-repeat;
+      opacity: 0.1;
+      z-index: 0;
+    }
+    
+    .cta-container {
+      max-width: 800px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+    
+    .cta h2 {
+      font-size: 2.2rem;
+      margin-bottom: 1.5rem;
+    }
+    
+    .cta p {
+      font-size: 1.2rem;
+      margin-bottom: 3rem;
+      opacity: 0.9;
+    }
+
+    .cta-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+    }
+    
+    /* Enhanced Footer */
+    footer {
+      background-color: var(--dark);
+      color: white;
+      padding: 5rem 2rem 2rem;
+      position: relative;
+    }
+
+    footer::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 5px;
+      background: linear-gradient(90deg, var(--primary), var(--secondary));
+    }
+    
+    .footer-container {
+      max-width: 1400px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 3rem;
+    }
+    
+    .footer-col h3 {
+      font-size: 1.3rem;
+      margin-bottom: 1.5rem;
+      position: relative;
+      padding-bottom: 0.75rem;
+    }
+    
+    .footer-col h3::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 50px;
+      height: 3px;
+      background-color: var(--accent);
+    }
+    
+    .footer-col ul {
+      list-style: none;
+    }
+    
+    .footer-col ul li {
+      margin-bottom: 0.75rem;
+    }
+    
+    .footer-col ul li a {
+      color: #adb5bd;
+      text-decoration: none;
+      transition: all 0.3s;
+      display: inline-block;
+    }
+    
+    .footer-col ul li a:hover {
+      color: white;
+      transform: translateX(5px);
+    }
+    
+    .social-links {
+      display: flex;
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+    
+    .social-links a {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      background-color: rgba(255, 255, 255, 0.1);
+      border-radius: 50%;
+      color: white;
+      transition: all 0.3s;
+    }
+    
+    .social-links a:hover {
+      background-color: var(--accent);
+      transform: translateY(-3px);
+    }
+    
+    .footer-bottom {
+      text-align: center;
+      padding-top: 3rem;
+      margin-top: 3rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      color: #adb5bd;
+      font-size: 0.9rem;
+    }
+
+    /* Buttons with Enhanced Effects */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.9rem 1.8rem;
+      border-radius: 50px;
+      font-weight: 600;
+      text-decoration: none;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+      border: none;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn i {
+      margin-right: 8px;
+      transition: transform 0.3s;
+    }
+
+    .btn:hover i {
+      transform: translateX(3px);
+    }
+
+    .btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+      transition: all 0.5s;
+    }
+
+    .btn:hover::before {
+      left: 100%;
+    }
+    
+    .btn-primary {
+      background-color: var(--primary);
+      color: white;
+    }
+    
+    .btn-primary:hover {
+      background-color: var(--primary-dark);
+      transform: translateY(-3px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    }
+    
+    .btn-outline {
+      background-color: transparent;
+      color: white;
+      border: 2px solid white;
+    }
+    
+    .btn-outline:hover {
+      background-color: white;
+      color: var(--primary);
+      transform: translateY(-3px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    }
+    
+    .btn-large {
+      padding: 1.2rem 2.5rem;
+      font-size: 1.1rem;
+    }
+
+    /* AI Chat Interface */
+    .chat-container {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      z-index: 1000;
+    }
+
+    .chat-toggle {
+      background: var(--primary);
+      color: white;
+      border: none;
+      padding: 18px 25px;
+      border-radius: 50px;
+      cursor: pointer;
+      box-shadow: 0 5px 25px rgba(0,0,0,0.2);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      transition: all 0.3s;
+      font-weight: 600;
+    }
+
+    .chat-toggle:hover {
+      background: var(--primary-dark);
+      transform: translateY(-3px) scale(1.05);
+      box-shadow: 0 8px 30px rgba(0,0,0,0.3);
+    }
+
+    .chat-window {
+      display: none;
+      background: white;
+      width: 350px;
+      border-radius: 15px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+      margin-top: 15px;
+      overflow: hidden;
+      transform-origin: bottom right;
+      animation: scaleIn 0.3s ease-out;
+    }
+
+    @keyframes scaleIn {
+      from { opacity: 0; transform: scale(0.8); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    .chat-header {
+      background: var(--primary);
+      color: white;
+      padding: 15px 20px;
+      border-radius: 15px 15px 0 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .chat-header h4 {
+      margin: 0;
+      font-size: 1.1rem;
+    }
+
+    .chat-close {
+      background: none;
+      border: none;
+      color: white;
+      font-size: 1.2rem;
+      cursor: pointer;
+      transition: transform 0.3s;
+    }
+
+    .chat-close:hover {
+      transform: rotate(90deg);
+    }
+
+    .chat-messages {
+      height: 350px;
+      padding: 20px;
+      overflow-y: auto;
+      background: #f9f9f9;
+    }
+
+    .message {
+      margin-bottom: 15px;
+      max-width: 80%;
+      padding: 10px 15px;
+      border-radius: 18px;
+      line-height: 1.4;
+      position: relative;
+      animation: fadeIn 0.3s ease-out;
+    }
+
+    .ai-message {
+      background: white;
+      border: 1px solid #eee;
+      border-radius: 18px 18px 18px 4px;
+      align-self: flex-start;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    }
+
+    .user-message {
+      background: var(--primary);
+      color: white;
+      border-radius: 18px 18px 4px 18px;
+      margin-left: auto;
+    }
+
+    .chat-input-container {
+      display: flex;
+      padding: 15px;
+      border-top: 1px solid #eee;
+      background: white;
+    }
+
+    .chat-input {
+      flex: 1;
+      padding: 12px 15px;
+      border: 1px solid #ddd;
+      border-radius: 25px;
+      outline: none;
+      font-family: 'Poppins', sans-serif;
+      transition: all 0.3s;
+    }
+
+    .chat-input:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.2);
+    }
+
+    .chat-send {
+      background: var(--primary);
+      color: white;
+      border: none;
+      width: 45px;
+      height: 45px;
+      border-radius: 50%;
+      margin-left: 10px;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .chat-send:hover {
+      background: var(--primary-dark);
+      transform: scale(1.1);
+    }
+
+    /* Back to Top Button */
+    .back-to-top {
+      position: fixed;
+      bottom: 100px;
+      right: 30px;
+      width: 50px;
+      height: 50px;
+      background: var(--primary);
+      color: white;
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s;
+      z-index: 999;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    }
+
+    .back-to-top.visible {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .back-to-top:hover {
+      background: var(--primary-dark);
+      transform: translateY(-3px);
+    }
+
+    /* Loading Animation */
+    .loader {
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      border: 3px solid rgba(255,255,255,0.3);
+      border-radius: 50%;
+      border-top-color: white;
+      animation: spin 1s ease-in-out infinite;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    /* Responsive Design */
+    @media (max-width: 992px) {
+      .hero h1 {
+        font-size: 2.5rem;
+      }
+      
+      .cta h2 {
+        font-size: 2rem;
+      }
+      
+      .footer-container {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 768px) {
+      .header-container {
+        flex-direction: column;
+        padding: 1rem;
+      }
+      
+      .logo {
+        margin-bottom: 1rem;
+      }
+      
+      .nav-links {
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+      }
+      
+      .nav-links li {
+        margin: 0.5rem 0;
+        width: 100%;
+        text-align: center;
+      }
+      
+      .auth-buttons {
+        margin-top: 1rem;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+      }
+      
+      .hero {
+        padding: 6rem 1.5rem 4rem;
+      }
+      
+      .hero h1 {
+        font-size: 2rem;
+      }
+      
+      .search-bar {
+        flex-direction: column;
+        border-radius: 8px;
+        max-width: 100%;
+      }
+      
+      .search-bar input, 
+      .search-bar button {
+        width: 100%;
+        border-radius: 0;
+      }
+      
+      .search-bar button {
+        padding: 1rem;
+      }
+
+      .cta-buttons {
+        flex-direction: column;
+        gap: 1rem;
+      }
+
+      .chat-container {
+        bottom: 20px;
+        right: 20px;
+      }
+
+      .chat-window {
+        width: 300px;
+      }
+
+      .back-to-top {
+        bottom: 80px;
+        right: 20px;
+      }
+    }
+
+    @media (max-width: 576px) {
+      .hero h1 {
+        font-size: 1.8rem;
+      }
+      
+      .hero p {
+        font-size: 1.1rem;
+      }
+      
+      .section-title h2 {
+        font-size: 1.8rem;
+      }
+      
+      .category-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .footer-container {
+        grid-template-columns: 1fr;
+      }
+
+      .chat-window {
+        width: 280px;
+        right: 10px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header id="header">
+    <div class="header-container">
+      <a href="#" class="logo-frame">
+        <div class="logo">
+          <i class="fas fa-handshake"></i> AnyHire
+        </div>
+      </a>
+      
+      <nav>
+        <ul class="nav-links">
+          <li><a href="#"><i class="fas fa-home"></i> Home</a></li>
+          <li><a href="#"><i class="fas fa-question-circle"></i> How It Works</a></li>
+          <li class="dropdown">
+            <a href="#"><i class="fas fa-list"></i> Categories <i class="fas fa-chevron-down"></i></a>
+            <div class="dropdown-content">
+              <a href="#"><i class="fas fa-hammer"></i> Construction</a>
+              <a href="#"><i class="fas fa-video"></i> Videography</a>
+              <a href="#"><i class="fas fa-utensils"></i> Kitchenware</a>
+              <a href="#"><i class="fas fa-concierge-bell"></i> Services</a>
+              <a href="#"><i class="fas fa-tractor"></i> Agriculture</a>
+              <a href="#"><i class="fas fa-tshirt"></i> Beauty & Fashion</a>
+              <a href="#"><i class="fas fa-car"></i> Motor Vehicles</a>
+              <a href="#"><i class="fas fa-campground"></i> Outdoor</a>
+              <a href="#"><i class="fas fa-laptop"></i> Electronics</a>
+              <a href="#"><i class="fas fa-running"></i> Sports & Exercise</a>
+            </div>
+          </li>
+          <li><a href="#"><i class="fas fa-info-circle"></i> About</a></li>
+          <li><a href="#"><i class="fas fa-envelope"></i> Contact</a></li>
+        </ul>
+        
+        <div class="auth-buttons">
+          <a href="#" class="btn btn-outline"><i class="fas fa-sign-in-alt"></i> Log In</a>
+          <a href="#" class="btn btn-primary"><i class="fas fa-user-plus"></i> Sign Up</a>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-container">
+      <h1>Rent Anything, Anywhere</h1>
+      <p>Find what you need for your next project, event, or adventure from people in your community.</p>
+      
+      <div class="search-bar">
+        <input type="text" placeholder="What are you looking for?">
+        <button type="submit"><i class="fas fa-search"></i> Search</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Categories Section -->
+  <section class="categories">
+    <div class="section-title">
+      <h2>Explore Categories</h2>
+      <p>Browse through our specialized rental categories</p>
+    </div>
+    
+    <div class="category-grid">
+      <a href="#" class="category-card">
+        <div class="category-img" style="background: #fff3e0">
+          <i class="fas fa-tools" style="color: #ff6b35"></i>
+        </div>
+        <div class="category-info">
+          <h3>Construction Tools</h3>
+          <p>Drills, saws & equipment</p>
+        </div>
+      </a>
+      
+      <a href="#" class="category-card">
+        <div class="category-img" style="background: #e0f7fa">
+          <i class="fas fa-camera" style="color: #4ecdc4"></i>
+        </div>
+        <div class="category-info">
+          <h3>Photography Gear</h3>
+          <p>Cameras & accessories</p>
+        </div>
+      </a>
+      
+      <a href="#" class="category-card">
+        <div class="category-img" style="background: #e3f2fd">
+          <i class="fas fa-car" style="color: #45b7d1"></i>
+        </div>
+        <div class="category-info">
+          <h3>Vehicles</h3>
+          <p>Cars, trucks & more</p>
+        </div>
+      </a>
+      
+      <a href="#" class="category-card">
+        <div class="category-img" style="background: #e8f5e9">
+          <i class="fas fa-campground" style="color: #96ceb4"></i>
+        </div>
+        <div class="category-info">
+          <h3>Outdoor Gear</h3>
+          <p>Camping equipment</p>
+        </div>
+      </a>
+
+      <a href="#" class="category-card">
+        <div class="category-img" style="background: #fff8e1">
+          <i class="fas fa-utensils" style="color: #ff9f1c"></i>
+        </div>
+        <div class="category-info">
+          <h3>Kitchenware</h3>
+          <p>Cooking appliances</p>
+        </div>
+      </a>
+
+      <a href="#" class="category-card">
+        <div class="category-img" style="background: #e0f7f7">
+          <i class="fas fa-running" style="color: #2ec4b6"></i>
+        </div>
+        <div class="category-info">
+          <h3>Sports Equipment</h3>
+          <p>Exercise gear</p>
+        </div>
+      </a>
+    </div>
+  </section>
+
+  <!-- Featured Items -->
+  <section class="featured-items">
+    <div class="items-container">
+      <div class="section-title">
+        <h2>Featured Items</h2>
+        <p>Popular items available for rent near you</p>
+      </div>
+      
+      <div class="item-grid">
+        <div class="item-card">
+          <div class="item-img">
+            <img src="https://images.unsplash.com/photo-1585771724684-38269d6639fd?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Power Drill">
+            <span class="item-badge">Popular</span>
+          </div>
+          <div class="item-info">
+            <h3>Power Drill Set</h3>
+            <div class="item-location">
+              <i class="fas fa-map-marker-alt"></i> Downtown, Tulsa
+            </div>
+            <div class="item-price">$8/day</div>
+            <div class="item-meta">
+              <span><i class="fas fa-star"></i> 4.9 (24)</span>
+              <span><i class="fas fa-calendar-alt"></i> Available</span>
+            </div>
+          </div>
+        </div>
+        
+        <div class="item-card">
+          <div class="item-img">
+            <img src="https://images.unsplash.com/photo-1516035069371-29a1b244cc32?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Camera">
+          </div>
+          <div class="item-info">
+            <h3>Professional Camera</h3>
+            <div class="item-location">
+              <i class="fas fa-map-marker-alt"></i> Midtown, Tulsa
+            </div>
+            <div class="item-price">$25/day</div>
+            <div class="item-meta">
+              <span><i class="fas fa-star"></i> 4.7 (18)</span>
+              <span><i class="fas fa-calendar-alt"></i> Available</span>
+            </div>
+          </div>
+        </div>
+        
+        <div class="item-card">
+          <div class="item-img">
+            <img src="https://images.unsplash.com/photo-1507035895480-2b3156c31fc8?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Party Tent">
+            <span class="item-badge discount">10% Off</span>
+          </div>
+          <div class="item-info">
+            <h3>Party Tent (10x10)</h3>
+            <div class="item-location">
+              <i class="fas fa-map-marker-alt"></i> South Tulsa
+            </div>
+            <div class="item-price">$40/day</div>
+            <div class="item-meta">
+              <span><i class="fas fa-star"></i> 4.8 (32)</span>
+              <span><i class="fas fa-calendar-alt"></i> Available</span>
+            </div>
+          </div>
+        </div>
+        
+        <div class="item-card">
+          <div class="item-img">
+            <img src="https://images.unsplash.com/photo-1558981806-ec527fa84c39?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Mountain Bike">
+          </div>
+          <div class="item-info">
+            <h3>Mountain Bike</h3>
+            <div class="item-location">
+              <i class="fas fa-map-marker-alt"></i> East Tulsa
+            </div>
+            <div class="item-price">$20/day</div>
+            <div class="item-meta">
+              <span><i class="fas fa-star"></i> 4.9 (41)</span>
+              <span><i class="fas fa-calendar-alt"></i> Available</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="cta">
+    <div class="cta-container">
+      <h2>Ready to rent or list your items?</h2>
+      <p>Join thousands of people who are making money from items they're not using every day.</p>
+      <div class="cta-buttons">
+        <a href="#" class="btn btn-outline btn-large"><i class="fas fa-plus-circle"></i> List Your Item</a>
+        <a href="#" class="btn btn-primary btn-large"><i class="fas fa-user-plus"></i> Sign Up Now</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-container">
+      <div class="footer-col">
+        <h3>AnyHire</h3>
+        <p>The peer-to-peer rental marketplace that connects people who need to rent items with those who have items to rent.</p>
+        <div class="social-links">
+          <a href="#"><i class="fab fa-facebook-f"></i></a>
+          <a href="#"><i class="fab fa-twitter"></i></a>
+          <a href="#"><i class="fab fa-instagram"></i></a>
+          <a href="#"><i class="fab fa-linkedin-in"></i></a>
+        </div>
+      </div>
+      
+      <div class="footer-col">
+        <h3>Quick Links</h3>
+        <ul>
+          <li><a href="#"><i class="fas fa-chevron-right"></i> Home</a></li>
+          <li><a href="#"><i class="fas fa-chevron-right"></i> About Us</a></li>
+          <li><a href="#"><i class="fas fa-chevron-right"></i> How It Works</a></li>
+          <li><a href="#"><i class="fas fa-chevron-right"></i> Categories</a></li>
+          <li><a href="#"><i class="fas fa-chevron-right"></i> Pricing</a></li>
+        </ul>
+      </div>
+      
+      <div class="footer-col">
+        <h3>Support</h3>
+        <ul>
+          <li><a href="#"><i class="fas fa-chevron-right"></i> Help Center</a></li>
+          <li><a href="#"><i class="fas fa-chevron-right"></i> Safety Tips</a></li>
+          <li><a href="#"><i class="fas fa-chevron-right"></i> Community Guidelines</a></li>
+          <li><a href="#"><i class="fas fa-chevron-right"></i> Contact Us</a></li>
+          <li><a href="#"><i class="fas fa-chevron-right"></i> FAQs</a></li>
+        </ul>
+      </div>
+      
+      <div class="footer-col">
+        <h3>Legal</h3>
+        <ul>
+          <li><a href="#"><i class="fas fa-chevron-right"></i> Terms of Service</a></li>
+          <li><a href="#"><i class="fas fa-chevron-right"></i> Privacy Policy</a></li>
+          <li><a href="#"><i class="fas fa-chevron-right"></i> Cookie Policy</a></li>
+          <li><a href="#"><i class="fas fa-chevron-right"></i> Rental Agreement</a></li>
+        </ul>
+      </div>
+    </div>
+    
+    <div class="footer-bottom">
+      <p>&copy; 2025 AnyHire. All rights reserved. | Secure Transactions | 24/7 Customer Support</p>
+    </div>
+  </footer>
+
+  <!-- AI Chat Interface -->
+  <div class="chat-container">
+    <button class="chat-toggle" onclick="toggleChat()">
+      <i class="fas fa-robot"></i> AI Assistant
+    </button>
+    <div class="chat-window">
+      <div class="chat-header">
+        <h4>AnyHire Assistant</h4>
+        <button class="chat-close" onclick="toggleChat()">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      <div class="chat-messages">
+        <div class="message ai-message">
+          <p>Hi there! I'm your AnyHire assistant. How can I help you today? You can ask me about:</p>
+          <ul style="margin-top: 8px; padding-left: 20px;">
+            <li>Available items for rent</li>
+            <li>How to list your items</li>
+            <li>Pricing information</li>
+            <li>Safety guidelines</li>
+          </ul>
+        </div>
+      </div>
+      <div class="chat-input-container">
+        <input type="text" class="chat-input" placeholder="Type your question...">
+        <button class="chat-send"><i class="fas fa-paper-plane"></i></button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Back to Top Button -->
+  <button class="back-to-top" onclick="scrollToTop()">
+    <i class="fas fa-arrow-up"></i>
+  </button>
+
+  <script>
+    // Sticky Header Animation
+    window.addEventListener('scroll', function() {
+      const header = document.getElementById('header');
+      if (window.scrollY > 50) {
+        header.classList.add('scrolled');
+      } else {
+        header.classList.remove('scrolled');
+      }
+    });
+
+    // Back to Top Button
+    window.addEventListener('scroll', function() {
+      const backToTopButton = document.querySelector('.back-to-top');
+      if (window.scrollY > 300) {
+        backToTopButton.classList.add('visible');
+      } else {
+        backToTopButton.classList.remove('visible');
+      }
+    });
+
+    function scrollToTop() {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    }
+
+    // AI Chat Functionality
+    function toggleChat() {
+      const chatWindow = document.querySelector('.chat-window');
+      chatWindow.style.display = chatWindow.style.display === 'block' ? 'none' : 'block';
+    }
+
+    // Close chat when clicking outside
+    document.addEventListener('click', function(event) {
+      const chatContainer = document.querySelector('.chat-container');
+      if (!chatContainer.contains(event.target)) {
+        document.querySelector('.chat-window').style.display = 'none';
+      }
+    });
+
+    // Simple Chat Interaction
+    const chatInput = document.querySelector('.chat-input');
+    const chatMessages = document.querySelector('.chat-messages');
+    const chatSend = document.querySelector('.chat-send');
+
+    function addUserMessage(message) {
+      const messageDiv = document.createElement('div');
+      messageDiv.className = 'message user-message';
+      messageDiv.innerHTML = `<p>${message}</p>`;
+      chatMessages.appendChild(messageDiv);
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
+
+    function addAiMessage(message) {
+      const messageDiv = document.createElement('div');
+      messageDiv.className = 'message ai-message';
+      messageDiv.innerHTML = `<p>${message}</p>`;
+      chatMessages.appendChild(messageDiv);
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
+
+    function processUserInput() {
+      const message = chatInput.value.trim();
+      if (message) {
+        addUserMessage(message);
+        chatInput.value = '';
+        
+        // Show typing indicator
+        const typingIndicator = document.createElement('div');
+        typingIndicator.className = 'message ai-message';
+        typingIndicator.innerHTML = '<p><span class="loader"></span></p>';
+        chatMessages.appendChild(typingIndicator);
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+        
+        // Simulate AI response after delay
+        setTimeout(() => {
+          chatMessages.removeChild(typingIndicator);
+          const responses = [
+            "I can help you find items to rent in your area. What specifically are you looking for?",
+            "That's a great question! Let me check our database for available items matching your needs.",
+            "I can assist with that. Would you like me to show you similar items available for rent?",
+            "Thanks for your question! Here are some options that might interest you...",
+            "I'd be happy to help with that. First, could you tell me your location?"
+          ];
+          const randomResponse = responses[Math.floor(Math.random() * responses.length)];
+          addAiMessage(randomResponse);
+        }, 1500);
+      }
+    }
+
+    chatSend.addEventListener('click', processUserInput);
+    chatInput.addEventListener('keypress', function(e) {
+      if (e.key === 'Enter') {
+        processUserInput();
+      }
+    });
+
+    // Smooth scrolling for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        document.querySelector(this.getAttribute('href')).scrollIntoView({
+          behavior: 'smooth'
+        });
+      });
+    });
+
+    // Item card hover effect enhancement
+    const itemCards = document.querySelectorAll('.item-card');
+    itemCards.forEach(card => {
+      card.addEventListener('mouseenter', function() {
+        this.style.transform = 'translateY(-10px) scale(1.02)';
+      });
+      card.addEventListener('mouseleave', function() {
+        this.style.transform = '';
+      });
+    });
+  </script>
+</body>
+</html>

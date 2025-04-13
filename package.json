@@ -1,0 +1,19 @@
+{
+    "name": "any4hire.com",
+    "version": "1.0.0",
+    "scripts": {
+      "start": "live-server",
+      "build": "npm run optimize-images && npm run minify",
+      "optimize-images": "node optimize-images.js",
+      "minify": "postcss assets/css/main.css -o assets/css/main.min.css && terser assets/js/main.js -o assets/js/main.min.js --compress && terser assets/js/chat.js -o assets/js/chat.min.js",
+      "deploy": "npm run build && netlify deploy --prod"
+    },
+    "devDependencies": {
+      "sharp": "^0.32.0",
+      "postcss": "^8.4.23",
+      "postcss-cli": "^10.1.0",
+      "autoprefixer": "^10.4.14",
+      "terser": "^5.17.3",
+      "live-server": "^1.2.2"
+    }
+  }
